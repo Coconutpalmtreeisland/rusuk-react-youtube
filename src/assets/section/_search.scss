@@ -1,0 +1,23 @@
+.search__inner {
+    width: 100%;
+    padding: 25.4px 40px;
+    border-bottom: 1px solid var(--white200);
+
+    label {
+        display: none;
+    }
+
+    .search__input {
+        width: 100%;
+        background-color: var(--white);
+        border: 1px solid var(--white200);
+        border-radius: 50px;
+        padding: 10px 20px;
+        color: var(--white200);
+        font-family: "SCoreDream";
+    }
+
+    .search__input::-webkit-input-placeholder {
+        font-family: "SCoreDream";
+    }
+}

@@ -1,0 +1,184 @@
+.header__logo {
+    border-bottom: 1px solid var(--white200);
+
+    a {
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+
+        em {
+            width: 62px;
+            height: 50px;
+            /* border: 1px solid #fff; */
+            margin-right: 5px;
+            position: relative;
+            animation: logo 5s 5s ease-in-out infinite;
+
+            @keyframes logo {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                40% {
+                    color: var(--point-color);
+                }
+
+                50% {
+                    transform: rotate(10deg);
+                }
+
+                55% {
+                    transform: rotate(6deg);
+                    color: white;
+                }
+
+                60% {
+                    transform: rotate(10deg);
+                    color: var(--point-color);
+                }
+
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
+
+
+            svg {
+                position: absolute;
+                top: -5px;
+                left: 4px;
+                width: 40px;
+                height: 60px;
+            }
+        }
+
+        span {
+            font-size: 27px;
+            line-height: 1;
+            font-family: var(--pointfont-museum);
+            font-weight: 900;
+            /* text-transform: uppercase; */
+            padding-left: 5px;
+        }
+    }
+}
+
+.header__menu {
+    padding: 10px;
+
+    .menu {
+        border-bottom: 1px solid var(--white200);
+        padding: 10px 0;
+
+        li {
+            margin-bottom: 5px;
+
+            a {
+                font-size: 1rem;
+                display: block;
+                line-height: 1;
+                color: var(--white100);
+                padding: 1rem 2rem 1rem 2.8rem;
+                position: relative;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: var(--point-Lcolor);
+                    color: var(--white);
+                }
+
+                &:active {
+                    background-color: var(--point-Lcolor);
+                    color: var(--white);
+                }
+
+                svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    position: absolute;
+                    left: 1rem;
+                    top: 0.7rem;
+                }
+
+                p {
+                    padding-left: 1rem;
+                }
+            }
+
+            &.active {
+                a {
+                    background-color: var(--point-Lcolor);
+                    color: var(--white);
+                }
+            }
+        }
+    }
+
+    .keyword {
+        padding: 6px;
+        display: block;
+
+        li {
+            margin: 8px 3px;
+            display: inline-block;
+
+            a {
+                font-family: var(--mainfont-Neo);
+                font-size: 0.8rem;
+                line-height: 1;
+                color: var(--white100);
+                padding: 0.4rem 0.8rem;
+                border: 1px solid var(--white);
+                border-radius: 30px;
+
+                &:hover {
+                    border: 1px solid var(--white);
+                    background-color: var(--point-Lcolor);
+                    color: var(--white);
+                }
+            }
+
+            &.active {
+                a {
+                    border: 1px solid var(--white);
+                    background-color: var(--point-Lcolor);
+                    color: var(--white);
+                }
+            }
+        }
+    }
+}
+
+.header__sns {
+    border-top: 1px solid var(--white200);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 52px 0 12px;
+    background-color: var(--black);
+
+    ul {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+
+        li {
+            display: inline-block;
+
+            a {
+                display: inline-block;
+                padding: 5px 7px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+
+}
