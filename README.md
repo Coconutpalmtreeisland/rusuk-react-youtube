@@ -2,6 +2,8 @@
 유튜브 API를 이용해서 해루석의 노래, 시참, 나레이션, 상황극, 생방송 등 해루석 활동 관련 사이트를 만들었습니다.
 해루석 영상이 유튜브에 이곳저곳 흩어져있어서 편하게 보기 위해 만들었습니다.
 
+<img src="https://raw.githubusercontent.com/Coconutpalmtreeisland/rusuk-react-youtube/main/src/assets/img/youtube.png">
+
 ## 플러그인 설치
 - react-router-dom, axios, react-icons, react-player, sass, react-helmet-async, swiper 한번에 설치:
 `npm install react-router-dom axios react-icons react-player sass react-helmet-async swiper`
