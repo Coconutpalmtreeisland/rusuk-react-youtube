@@ -20,13 +20,13 @@ export const youtubeText = [
     {
         img: "https://yt3.googleusercontent.com/QJdHgfT3P2HhhX4NdjtWYMK5vUNAjOmrKzBahdYOPMm62Qh2v3LaOOh_VW8pZso5TS8-gveo=s176-c-k-c0x00ffffff-no-rj",
         title: "왁타버스 WAKTAVERSE",
-        channelId: "UC-oCJP9t47v7-DmsnmXV38Q",
+        channelId: "UCzh4yY8rl38knH33XpNqXbQ",
         channelAddress: "https://www.youtube.com/user/welshcorgimessi",
     },
     {
         img: "https://yt3.googleusercontent.com/5FEOF0EySEBp8ZZRovm1zt2ZFWB20IQqYXOnb06GbUACKlzjBtS40MBfHy7d119e4We810ECAg=s176-c-k-c0x00ffffff-no-rj",
         title: "왁타버스 ZERO",
-        channelId: "UCzh4yY8rl38knH33XpNqXbQ",
+        channelId: "UChCqDNXQddSr0ncjs_78duA",
         channelAddress: "https://www.youtube.com/@wakzero",
     },
     {
@@ -142,17 +142,5 @@ export const youtubeText = [
         title: "카르나르 융터르",
         channelId: "UCBkyj16n2snkRg1BAzpovXQ",
         channelAddress: "https://www.youtube.com/@carnarjungtur",
-    },
-    {
-        img: "",
-        title: "",
-        channelId: "",
-        channelAddress: "",
-    },
-    {
-        img: "",
-        title: "",
-        channelId: "",
-        channelAddress: "",
     },
 ]

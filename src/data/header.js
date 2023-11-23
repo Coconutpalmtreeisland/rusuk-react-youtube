@@ -1,6 +1,6 @@
 import { IoIosBowtie } from 'react-icons/io'
 import { FcLike } from 'react-icons/fc'
-import { FcOpenedFolder } from 'react-icons/fc'
+// import { FcOpenedFolder } from 'react-icons/fc'
 import { FcStart } from 'react-icons/fc'
 
 import { AiFillGithub } from 'react-icons/ai'
@@ -18,11 +18,11 @@ export const menuText = [
         icon: <FcLike />,
         src: '/today'
     },
-    {
-        title: "해루석 모음",
-        icon: <FcOpenedFolder />,
-        src: '/file'
-    },
+    // {
+    //     title: "해루석 모음",
+    //     icon: <FcOpenedFolder />,
+    //     src: '/file'
+    // },
     {
         title: "관련 유튜브",
         icon: <FcStart />,
@@ -68,7 +68,7 @@ export const snsText = [
         icon: <AiFillYoutube />
     }, {
         title: "Instagram",
-        src: "",
+        src: "https://www.instagram.com/hyemin_246/",
         icon: <BsInstagram />
     }
 ]

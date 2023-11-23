@@ -7,16 +7,24 @@
     margin-bottom: 2rem;
 
     .today__thumb {
-        width: 40%;
-        background-image: url(https://i.ytimg.com/vi/7BKS8bDVJ3o/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1fFU2PcBzx-9Rv9doTVcEusPTmg);
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: contain;
+        width: 35%;
         border: 1px solid var(--white);
+        background: var(--black);
+        display: flex;
+        align-items: center;
+
+        a {
+            display: block;
+            cursor: pointer;
+            width: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
     }
 
     .today__text {
-        width: 60%;
+        width: 65%;
         height: 310px;
         padding: 2rem;
         margin-left: 2%;
