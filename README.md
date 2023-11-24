@@ -12,6 +12,8 @@
 - react-router-dom
     설명쓰기
 
+    - BrowserRouter, Routes, Route
+
 - axios
     설명쓰기
 
@@ -31,28 +33,30 @@
 <details>
     <summary>App.js 설정</summary>
 
-    import React from 'react'
-    import { BrowserRouter, Routes, Route } from 'react-router-dom';
-    import Home from './pages/Home'
-    import Header from './components/section/Header';
-    import Main from './components/section/Main';
-    import Footer from './components/section/Footer';
+```javascript
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home'
+import Header from './components/section/Header';
+import Main from './components/section/Main';
+import Footer from './components/section/Footer';
 
-    const App = () => {
-        return (
-            <BrowserRouter>
-            <Header />
-            <Main>
-                <Routes>
-                <Route path="/" element={<Home />} />
-                </Routes>
-            </Main>
-            <Footer />
-            </BrowserRouter>
-        )
-    }
+const App = () => {
+    return (
+        <BrowserRouter>
+        <Header />
+        <Main>
+            <Routes>
+            <Route path="/" element={<Home />} />
+            </Routes>
+        </Main>
+        <Footer />
+        </BrowserRouter>
+    )
+}
 
-    export default App
+export default App
+```
 </details>
 
 ## API
@@ -77,13 +81,15 @@
 Postman은 API 개발 및 테스트를 위한 협업 도구로 사용되는 프로그램입니다.
 Postman을 사용하면 간단한 HTTP 요청부터 복잡한 API 테스트 및 디버깅 작업까지 다양한 작업을 수행할 수 있습니다. 
 
+*****
+
 <details>
 
 <summary>용어 설명</summary>
 
-- suspense
-    `suspense`는 데이터가 준비될 때까지 사용자에게 로딩 상태를 보여줄 수 있으며, 여러 비동기 작업을 쉽게 조율하여 사용자는 더 빠르고 부드러운 인터페이스를 경험하도록 합니다. 기존에 Promise나 async/await와 같은 방법으로 처리하던 비동기 작업 대신 컴포넌트 내부에서 데이터를 불러오는 로직을 분리해서 비동기 작업의 상태에 따른 UI 처리를 간단하게 할 수 있습니다.
-    데이터를 불러오는 동안 보여줄 UI를 쉽게 설정할 수 있고 React가 비동기 작업의 상태를 관리하므로 개발자가 직접 상태를 관리할 필요가 없습니다. 여러 개의 Suspense 컴포넌트를 사용하면, 각각의 비동기 작업이 완료될 때까지 기다린 후 한꺼번에 렌더링할 수 있습니다. 다만, 아직 실험적인 기능으로, API가 변경될 가능성이 있고 React의 Concurrent Mode를 활성화해야 하는데, 이 모드는 아직 안정화되지 않았기 때문에 주의해야 합니다.
+- suspense  
+    `suspense`는 데이터가 준비될 때까지 사용자에게 로딩 상태를 보여줄 수 있으며, 여러 비동기 작업을 쉽게 조율하여 사용자는 더 빠르고 부드러운 인터페이스를 경험하도록 합니다. 기존에 Promise나 async/await와 같은 방법으로 처리하던 비동기 작업 대신 컴포넌트 `내부에서 데이터를 불러오는 로직을 분리`해서 비동기 작업의 상태에 따른 UI 처리를 간단하게 할 수 있습니다.
+    데이터를 불러오는 동안 보여줄 UI를 쉽게 설정할 수 있고 React가 비동기 작업의 상태를 관리하므로 개발자가 직접 상태를 관리할 필요가 없습니다. 여러 개의 Suspense 컴포넌트를 사용하면, 각각의 `비동기 작업이 완료될 때까지 기다린 후 한꺼번에 렌더링`할 수 있습니다. 다만, 아직 실험적인 기능으로, API가 변경될 가능성이 있고 React의 Concurrent Mode를 활성화해야 하는데, 이 모드는 아직 안정화되지 않았기 때문에 주의해야 합니다.
 
 - 컴포넌트
 - hook
@@ -94,8 +100,60 @@ Postman을 사용하면 간단한 HTTP 요청부터 복잡한 API 테스트 및 
 
 제목이 있으면 제목이 뜨고 없으면 Rusuk Yotube가 뜸 로딩이 끝나면 defaultTitle='' 에 있는 말이 뜸
 
-async await 정리
+- async await   
+`비동기 작업`을 처리하기 위한 문법
+    <details>
+    <summary>작업의 실행 방식</summary>
+    <details>
+    <summary>동기(Synchronous)</summary>
+
+    동기 방식에서는 한 작업이 완료될 때까지 기다린 후, 다음 작업을 실행합니다. 즉, 작업이 __순차적__ 으로 진행되며, 어떤 작업이 실행 중이면 그 작업이 끝나기 전까지는 다른 작업을 시작하지 않습니다.
+
+    </details>
+
+    <details>
+    <summary>비동기(Asynchronous)</summary>
+
+    비동기 방식에서는 한 작업이 완료되는 것을 기다리지 않고, __다음 작업을 즉시 실행__ 합니다. 즉, 여러 작업이 동시에 진행될 수 있습니다. (예) Web API, Ajax, setTimeout 등  
+    비동기 요청시 응답 후 순서에 맞게 처리할 '콜백 함수'를 함께 알려준다. 따라서 해당 태스크가 완료되었을 때, '콜백 함수'가 호출된다. 
+
+    </details><br>
+    
+    > 동기 방식은 간단하고 직관적이지만, 작업이 끝나기를 기다리는 동안 프로그램이 멈추게 되어 효율성이 떨어질 수 있습니다. 반면 `비동기 방식`은 복잡한 경우가 많지만, `여러 작업을 동시에 처리`할 수 있어 효율적인 프로그램을 작성할 수 있습니다.
+    
+    </details>  
+
+    `async`는 함수 앞에 위치하여 해당 함수가 `비동기적으로 동작`함을 명시하며, `await`는 async 함수 내부에서 '콜백 함수'의 가독성과 에러 문제를 해결한 생성자 함수인 `Promise`가 resolve 또는 reject될 때까지 실행을 `일시 중지`하도록 하는데 사용합니다.  
+
+    > 예시
+
+    ```javascript
+    function fetchUser(id) {
+    return fetch(`https://api.example.com/users/${id}`)
+        .then(response => response.json())
+        .then(user => user);
+    }
+    ```
+
+    위 함수는 fetch를 사용하여 Promise를 반환합니다. 따라서 이 함수를 호출하는 곳에서는 then 메서드나 catch 메서드를 사용해야 합니다. 하지만 async와 await를 사용하면 이 과정을 더 간결하고 가독성 좋게 표현할 수 있습니다.
+
+    ```javascript
+    async function fetchUser(id) {
+        try {
+            const response = await fetch(`https://api.example.com/users/${id}`);
+            const user = await response.json();
+            return user;
+        } catch (error) {
+            console.error('Failed to fetch user:', error);
+        }
+    }
+    ```
+    이렇게 하면 fetchUser 함수는 여전히 Promise를 반환하지만, 함수 내부에서는 비동기적인 작업이 마치 `동기적인 것처럼 보이게` 됩니다. 이는 코드의 가독성을 크게 향상시킵니다.
+
+    또한, async 함수 내에서는 `try/catch 문`을 사용하여 에러 처리를 할 수 있습니다. 이는 then과 catch 메서드를 사용하는 것보다 더 직관적이고 일관된 에러 처리 방식을 제공합니다.
+
 fetchFromAPI 정리
 map 정리 에 대한 설명과 어떻게 쓰이는지
 hook - useParams, useState, useEffect
 import, export 정리
+
