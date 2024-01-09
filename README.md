@@ -10,54 +10,66 @@
 `npm install react-router-dom axios react-icons react-player sass react-helmet-async swiper`
 
 - react-router-dom
-    설명쓰기
-
-    - BrowserRouter, Routes, Route
+    - BrowserRouter: HTML5의 history API를 사용하여 UI를 URL과 동기화시키는 라우터입니다. 이 컴포넌트 하위에서 라우팅 관련 기능을 사용할 수 있습니다. 주요 속성으로는 basename이 있으며, 이는 모든 위치에 공통적으로 적용될 URL의 기본 경로를 나타냅니다.
+    - Routes: Route 컴포넌트를 사용하여 어떤 컴포넌트가 렌더링될지 결정하는 역할을 합니다. 어떤 경로가 매치되었는지를 판단하며, 첫 번째로 매치된 Route의 컴포넌트만 렌더링합니다.
+    - Route: 특정 URL에 매치될 때 UI를 렌더링하는 역할을 합니다. Routes 컴포넌트 안에 위치하며, 주요 속성으로는 path와 element가 있습니다. path는 URL 경로를, element는 렌더링할 컴포넌트를 나타냅니다.
 
 - axios
-    설명쓰기
+    axios는 Promise 기반의 API를 제공하여 비동기 방식으로 HTTP 요청을 보내고 응답을 받을 수 있게 해줍니다.
+    - Promise 기반: Axios는 Promise 기반으로 동작하여 비동기 요청을 쉽게 관리할 수 있습니다. then()과 catch() 메서드를 사용해 요청의 결과를 처리하거나 오류를 잡을 수 있습니다.
+    - 요청과 응답의 인터셉터: 요청이 서버로 보내지기 전이나 서버로부터 응답이 돌아오기 전에 데이터를 가로채어 변형하거나 추가적인 작업을 수행할 수 있습니다.
+    - 자동 변환: JSON 데이터를 자동으로 JavaScript 객체로 변환해줍니다.
+    - 클라이언트 측 지원: 브라우저에서 직접 HTTP 요청을 생성할 수 있습니다.
 
 - react-icons   
 사이트 타이틀 옆 svg 로고를 사용하기 위해 설치
 
 - react-player
-    설명쓰기
+    사이트에서 유튜브 영상을 재생하기 위해 사용했습니다.
 
 - react-helmet-async   
     `React Helmet Async`는 React 앱의 `문서 헤드(Document Head)를 관리`하는 데 사용되는 라이브러리입니다. React Helmet Async는 서버 사이드 렌더링(SSR)과 호환되며, 이는 기존의 React Helmet 라이브러리에서 비동기적인 렌더링 환경에서 발생할 수 있는 문제를 해결한 버전입니다. HTML 문서의 헤드에는 타이틀, 메타 태그, 스크립트 등의 정보를 포함하여, 검색 엔진 최적화(SEO)나 소셜 미디어 공유 등에 중요한 역할을 합니다. 각각의 라우트나 컴포넌트에서 독립적으로 문서 헤드를 관리하거나, 서버 사이드 렌더링을 사용하면서 문서 헤드를 동적으로 변경하기에 적합합니다. 이를 통해 사용자에게 보여지는 페이지 타이틀이나 메타 태그를 쉽게 변경할 수 있으며, 검색 엔진이나 소셜 미디어 봇이 페이지를 크롤링할 때 동적인 정보를 제공할 수 있습니다.
-
-- swiper
-    설명쓰기
 
 ## App.js
 <details>
     <summary>App.js 설정</summary>
 
 ```javascript
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home'
-import Header from './components/section/Header';
+
 import Main from './components/section/Main';
-import Footer from './components/section/Footer';
+
+const Home = lazy(() => import('./pages/Home'));
+const Today = lazy(() => import('./pages/Today'));
+const Youtube = lazy(() => import('./pages/Youtube'));
+const Channel = lazy(() => import('./pages/Channel'));
+const Search = lazy(() => import('./pages/Search'));
+const Video = lazy(() => import('./pages/Video'));
 
 const App = () => {
-    return (
-        <BrowserRouter>
-        <Header />
-        <Main>
-            <Routes>
-            <Route path="/" element={<Home />} />
-            </Routes>
-        </Main>
-        <Footer />
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<Main />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/today" element={<Today />} />
+          <Route path="/youtube" element={<Youtube />} />
+          <Route path="/channel/:channelId" element={<Channel />} />
+          <Route path="/search/:searchId" element={<Search />} />
+          <Route path="/video/:videoId" element={<Video />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  )
 }
 
 export default App
+
 ```
 </details>
+
+코드의 재사용성과 유지 보수를 위해 각 기능을 개별 컴포넌트로 만들어 관리합니다.
 
 ## API
 <details>
@@ -92,13 +104,21 @@ Postman을 사용하면 간단한 HTTP 요청부터 복잡한 API 테스트 및 
     데이터를 불러오는 동안 보여줄 UI를 쉽게 설정할 수 있고 React가 비동기 작업의 상태를 관리하므로 개발자가 직접 상태를 관리할 필요가 없습니다. 여러 개의 Suspense 컴포넌트를 사용하면, 각각의 `비동기 작업이 완료될 때까지 기다린 후 한꺼번에 렌더링`할 수 있습니다. 다만, 아직 실험적인 기능으로, API가 변경될 가능성이 있고 React의 Concurrent Mode를 활성화해야 하는데, 이 모드는 아직 안정화되지 않았기 때문에 주의해야 합니다.
 
 - 컴포넌트
-- hook
+   UI를 독립적이고 재사용 가능한 부분으로 나누기 위해 사용합니다. 자바스크립트 함수나 클래스와 같이, 입력을 받아 사용자 인터페이스를 출력합니다.
+  
+- react-hook
+  코드의 간결성과 가독성을 높이며 재사용성을 향상시키기 위해 함수형 컴포넌트에서도 상태 관리와 생명주기 기능을 활용할 수 있게 해주는 API입니다.
+  - useState: 이 Hook은 컴포넌트의 상태를 추가하는데 사용됩니다. useState는 초기 상태 값을 인자로 받고, 상태 값과 해당 상태를 업데이트하는 함수를 쌍으로 반환합니다.
+  - useEffect: 이 Hook은 함수형 컴포넌트에서 생명주기 메서드를 사용할 수 있게 해줍니다. useEffect는 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정할 수 있습니다.
+  - useLocation: 이 Hook은 현재 위치에 대한 정보를 제공합니다. 이 정보는 현재 URL 경로, 검색 문자열, 상태 등을 포함하고 있습니다. 이 Hook을 사용하면 현재 페이지의 URL 정보를 쉽게 알 수 있습니다.
+  - useNavigate: 이 Hook은 새로운 위치로 이동하는 기능을 제공합니다. 이 Hook을 사용하면 프로그래밍 방식으로 라우팅을 제어할 수 있습니다.
+  - useParams: 이 Hook은 현재 URL의 파라미터를 분석합니다. 이 Hook을 사용하면 URL 경로에 있는 동적 세그먼트를 쉽게 추출할 수 있습니다.
 
 </details>
 
 `<Helmet titleTemplate='%s | Rusuk Yotube' defaultTitle='Rusuk Youtube'>`
 
-제목이 있으면 제목이 뜨고 없으면 Rusuk Yotube가 뜸 로딩이 끝나면 defaultTitle='' 에 있는 말이 뜸
+제목이 있으면 제목이 뜨고 없으면 Rusuk Yotube가 뜸 로딩이 끝나면 defaultTitle='' 에 있는 말이 나옵니다.
 
 - async await   
 `비동기 작업`을 처리하기 위한 문법
@@ -115,7 +135,7 @@ Postman을 사용하면 간단한 HTTP 요청부터 복잡한 API 테스트 및 
     <summary>비동기(Asynchronous)</summary>
 
     비동기 방식에서는 한 작업이 완료되는 것을 기다리지 않고, __다음 작업을 즉시 실행__ 합니다. 즉, 여러 작업이 동시에 진행될 수 있습니다. (예) Web API, Ajax, setTimeout 등  
-    비동기 요청시 응답 후 순서에 맞게 처리할 '콜백 함수'를 함께 알려준다. 따라서 해당 태스크가 완료되었을 때, '콜백 함수'가 호출된다. 
+    비동기 요청시 응답 후 순서에 맞게 처리할 '콜백 함수'를 함께 사용합니다. 따라서 해당 태스크가 완료되었을 때, '콜백 함수'가 호출됩니다. 
 
     </details><br>
     
@@ -152,7 +172,30 @@ Postman을 사용하면 간단한 HTTP 요청부터 복잡한 API 테스트 및 
 
     또한, async 함수 내에서는 `try/catch 문`을 사용하여 에러 처리를 할 수 있습니다. 이는 then과 catch 메서드를 사용하는 것보다 더 직관적이고 일관된 에러 처리 방식을 제공합니다.
 
-fetchFromAPI 정리
+- fetchFromAPI
+  ```javascript
+  import axios from "axios";
+
+    export const BASE_URL = 'https://youtube-v31.p.rapidapi.com'
+
+    const options = {
+        params: {
+            maxResults: '48',
+        },
+        headers: {
+            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+            'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
+        }
+    };
+
+    export const fetchFromAPI = async (url) => {
+        const { data } = await axios.get(`${BASE_URL}/${url}`, options);
+        return data;
+    }
+  ```
+  입력된 URL에 대해 GET 요청을 보내는 역할을 합니다. 이 함수는 axios 라이브러리를 사용하여 HTTP 요청을 수행하며, 이는 Promise 기반의 비동기 처리를 지원합니다.
+  입력받은 url을 기반으로 API endpoint를 생성합니다. BASE_URL과 입력받은 url을 조합하여 전체 URL을 만듭니다. 이후, axios의 get 메소드를 사용하여 해당 URL에 GET 요청을 보냅니다. 이 때 options 객체를 두 번째 인자로 전달하여, 요청에 필요한 헤더와 파라미터를 설정합니다. options 객체에는 RapidAPI 플랫폼을 통해 YouTube API를 호출하기 위한 필요한 헤더 정보가 포함되어 있습니다. X-RapidAPI-Key는 사용자의 RapidAPI 키를, X-RapidAPI-Host는 요청을 보낼 API의 Host를 나타냅니다. 또한, params 객체는 요청시 함께 보낼 쿼리 파라미터를 정의합니다. axios.get 메소드는 Promise를 반환하므로, async-await 구문을 사용해 비동기적으로 응답을 처리합니다. 응답에서 데이터 부분만을 추출하여 반환합니다.
+
 map 정리 에 대한 설명과 어떻게 쓰이는지
 hook - useParams, useState, useEffect
 import, export 정리
